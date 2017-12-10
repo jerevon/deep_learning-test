@@ -1,0 +1,16 @@
+#!/bin/bash
+#PBS -N count_example ## job name
+#PBS -l nodes=1:ppn=1 ## single-node job, single core
+#PBS -l walltime=00:20:00 ## max. 2h of wall time
+module load Python/3.5.2-intel-2016b
+# copy input data from location where job was submitted from
+# cp -r $HOME/data $TMPDIR
+# cp $HOME/custom_data_cnn.py $TMPDIR
+# go to temporary working directory (on local disk) & run
+#cd $TMPDIR
+cd $IMG
+# python $TMPDIR custom_data_cnn.py > result
+python $IMG deeptest.py 
+# copy back output data, ensure unique filename using $PBS_JOBID
+# cp -r $TMPDIR $VSC_DATA/output_${PBS_JOBID}
+cp -r $IMG $VSC_DATA/output_${PBS_JOBID}
